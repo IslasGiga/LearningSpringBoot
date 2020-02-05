@@ -7,12 +7,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.example.learning.domain.Address;
 import com.example.learning.domain.Category;
 import com.example.learning.domain.City;
+import com.example.learning.domain.Client;
 import com.example.learning.domain.Product;
 import com.example.learning.domain.State;
+import com.example.learning.domain.enums.ClientType;
+import com.example.learning.repository.AddressRepository;
 import com.example.learning.repository.CategoryRepository;
 import com.example.learning.repository.CityRepository;
+import com.example.learning.repository.ClientRepository;
 import com.example.learning.repository.ProductRepository;
 import com.example.learning.repository.StateRepository;
 
@@ -30,6 +35,13 @@ public class LearningApplication implements CommandLineRunner{
 	
 	@Autowired
 	StateRepository stateRepo;
+	
+	@Autowired
+	ClientRepository clientRepo;
+	
+	@Autowired
+	AddressRepository addressRepo;
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(LearningApplication.class, args);
@@ -71,6 +83,20 @@ public class LearningApplication implements CommandLineRunner{
 		prodRepo.saveAll(Arrays.asList(p1, p2, p3));
 		stateRepo.saveAll(Arrays.asList(state1, state2));
 		cityRepo.saveAll(Arrays.asList(city1, city2, city3));
+		
+		Client c1 = new Client(null, "Maria Silva", "maria@email.com", "8532568245", ClientType.INDIVIDUAL);
+		c1.getPhones().addAll(Arrays.asList("85998854545", "85995658457"));
+		
+		
+		Address a1 = new Address(null, "Rua das Flores", "216", "Apartamento 12", "Jardins", "31254874", city1,
+				c1);
+		Address a2 = new Address(null, "Avenida Matos", "105", "Sala 800", "Centro", "38789258", city2,
+				c1);
+		
+		clientRepo.saveAll(Arrays.asList(c1));
+		addressRepo.saveAll(Arrays.asList(a1, a2));
+		
+		
 		
 	}
 
