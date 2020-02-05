@@ -38,6 +38,8 @@ public class Client implements Serializable{
 	@CollectionTable(name = "PHONE")
 	private Set<String> phones = new HashSet<String>();
 	
+	private List<Request> requests = new ArrayList<Request>();
+	
 	public Integer getId() {
 		return id;
 	}
@@ -128,6 +130,14 @@ public class Client implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public List<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(List<Request> requests) {
+		this.requests = requests;
 	}
 	
 	
