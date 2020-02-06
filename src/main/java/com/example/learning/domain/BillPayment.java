@@ -2,8 +2,11 @@ package com.example.learning.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 import com.example.learning.domain.enums.PaymentState;
 
+@Entity
 public class BillPayment extends Payment{
 	
 	private static final long serialVersionUID = 1L;
