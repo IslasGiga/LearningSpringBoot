@@ -2,7 +2,9 @@ package com.example.learning.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -34,6 +37,9 @@ public class Product implements Serializable{
 	)
 	private List<Category> categories = new ArrayList<Category>(); 
 	
+	@OneToMany(mappedBy = "id.product")
+	private Set<ItemRequest> itemsRequest = new HashSet<>();	
+	
 	public Product() {}
 
 	public Product(Integer id, String name, double price) {
@@ -43,6 +49,17 @@ public class Product implements Serializable{
 		this.price = price;
 	}
 
+	
+	public List<Request> getRequests(){
+		List<Request> list = new ArrayList<>();	
+		for(ItemRequest x: itemsRequest) {
+			list.add(x.getRequest());
+		}
+		return list;	
+	}
+	
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -98,6 +115,14 @@ public class Product implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Set<ItemRequest> getItemRequest() {
+		return itemsRequest;
+	}
+
+	public void setItemRequest(Set<ItemRequest> itemRequest) {
+		this.itemsRequest = itemRequest;
 	}
 	
 	

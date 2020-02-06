@@ -14,6 +14,7 @@ import com.example.learning.domain.CardPayment;
 import com.example.learning.domain.Category;
 import com.example.learning.domain.City;
 import com.example.learning.domain.Client;
+import com.example.learning.domain.ItemRequest;
 import com.example.learning.domain.Payment;
 import com.example.learning.domain.Product;
 import com.example.learning.domain.Request;
@@ -24,6 +25,7 @@ import com.example.learning.repository.AddressRepository;
 import com.example.learning.repository.CategoryRepository;
 import com.example.learning.repository.CityRepository;
 import com.example.learning.repository.ClientRepository;
+import com.example.learning.repository.ItemRequestRepository;
 import com.example.learning.repository.PaymentRepository;
 import com.example.learning.repository.ProductRepository;
 import com.example.learning.repository.RequestRepository;
@@ -56,6 +58,9 @@ public class LearningApplication implements CommandLineRunner{
 	@Autowired
 	PaymentRepository paymentRepo;
 	
+	
+	@Autowired
+	ItemRequestRepository ItemRequestRepo;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(LearningApplication.class, args);
@@ -125,6 +130,19 @@ public class LearningApplication implements CommandLineRunner{
 		
 		requestRepo.saveAll(Arrays.asList(request1, request2));
 		paymentRepo.saveAll(Arrays.asList(payment1, payment2));
+		
+		ItemRequest item1 = new ItemRequest(request1, p1, 0.0, 1, 2000.0);
+		ItemRequest item2 = new ItemRequest(request1, p3, 0.0, 2, 80.0);
+		ItemRequest item3 = new ItemRequest(request2, p2, 100.0, 1, 800.0);
+		
+		request1.getItemRequest().addAll(Arrays.asList(item1, item2));
+		request2.getItemRequest().addAll(Arrays.asList(item3));
+		
+		p1.getItemRequest().addAll(Arrays.asList(item1));
+		p2.getItemRequest().addAll(Arrays.asList(item3));
+		p3.getItemRequest().addAll(Arrays.asList(item2));
+		
+		ItemRequestRepo.saveAll(Arrays.asList(item1, item2, item3));
 		
 	}
 
