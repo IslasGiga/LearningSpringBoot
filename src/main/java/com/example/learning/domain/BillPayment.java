@@ -6,6 +6,7 @@ import com.example.learning.domain.enums.PaymentState;
 
 public class BillPayment extends Payment{
 	
+	private static final long serialVersionUID = 1L;
 	private Date endDate;
 	private Date paymentDate;
 	
